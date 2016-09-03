@@ -1,4 +1,4 @@
-" My .vimrc configuration {{{ 
+"vimrc configuration {{{ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Remove vi old behavior
@@ -19,20 +19,31 @@ Plugin 'VundleVim/Vundle.vim'
 " Editor
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Raimondi/delimitMate'
 Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-vinegar'
+Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'dracula/vim'
 
 " Coding
 Plugin 'SirVer/ultisnips'
 Plugin 'majutsushi/tagbar'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
 
 " systemVeilog
 Plugin 'vhda/verilog_systemverilog.vim'
+Plugin 'tmhedberg/matchit'
+Plugin 'vim-scripts/vcscommand.vim'
+Plugin 'triglav/vim-visual-increment'
+
+" Python
+" Plugin 'klen/python-mode'
 
 call vundle#end()
 filetype plugin indent on    
@@ -110,7 +121,10 @@ set pastetoggle=<F2>
 syntax enable
 
 set background=dark
-colorscheme solarized
+color Dracula
+highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
+
+set colorcolumn=79
 " }}}
 
 " Text, tab and indent related {{{
@@ -129,7 +143,6 @@ set lbr
 set tw=500
 
 set ai "Auto indent
-set si "Smart indent
 set wrap "Wrap lines
 " }}}
 
@@ -166,9 +179,33 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " ultisnips
-let g:UltiSnipsExpandTrigger="<c-a>" 
+let g:UltiSnipsExpandTrigger="<c-j>" 
 let g:UltiSnipsJumpForwardTrigger="<c-j>" 
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 let g:verilog_syntax_fold = "function,task"
 " }}}
+
+nmap <F9> :TagbarToggle<CR>
+" 启动时自动focus
+let g:tagbar_autofocus = 1
+
+let g:tagbar_type_systemverilog= {
+    \ 'ctagstype' : 'systemverilog',
+    \ 'kinds'     : [
+        \'c:classes',
+        \'t:tasks',
+        \'f:functions',
+        \'m:modules',
+        \'i:interfaces',
+        \'v:variables',
+        \'d:defines',
+        \'e:typedefs',
+        \'a:parameters'
+  \]
+\}
+
+set tags=./tags;
+set tags+=~/.vim/tags/
+
+" g:python_doc = 0
